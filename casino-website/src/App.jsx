@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
 import Wrapper from "./components/Wrapper";
+import Login from "./pages/Login";
+import GamesList from "./pages/GamesList";
 
 export default function App() {
   return (
@@ -8,7 +9,10 @@ export default function App() {
       <Router>
         <Wrapper />
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route exact path="/" element={<Login />} />
+        </Routes>
+        <Routes>
+          <Route path="/games" element={<GamesList />} />
         </Routes>
       </Router>
     </>
