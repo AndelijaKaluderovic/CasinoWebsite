@@ -1,11 +1,13 @@
-export default function CategoryCard() {
+export default function CategoryCard({ categories }) {
   return (
     <>
-      <div className="category item">
-        <div className="content">
-          <div className="header"></div>
+      {categories.map((category, index) => (
+        <div key={index} className="category item">
+          <div className="content">
+            <div className="header">{category.name}</div>
+          </div>
         </div>
-      </div>
+      ))}
     </>
   );
 }
