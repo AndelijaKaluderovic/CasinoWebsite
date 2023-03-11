@@ -3,7 +3,7 @@ import Logout from "./Logout";
 
 export default function NavBar({ player, handleLogout }) {
   return (
-    <div className="ui grid centered">
+    <div className="ui grid stackable centered">
       <div className="twelve wide column">
         <div className="ui list">
           <PlayerCard player={player} />

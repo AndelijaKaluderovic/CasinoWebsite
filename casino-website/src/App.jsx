@@ -11,7 +11,12 @@ export default function App() {
   const [games, setGames] = useState([]);
   const [game, setGame] = useState(undefined);
   const [categories, setCategories] = useState([]);
-  const [player, setPlayer] = useState({});
+  const [player, setPlayer] = useState({
+    name: "Eric Beard",
+    avatar: "images/avatar/eric.jpg",
+    event: "I saw you won 500 SEK last time!",
+    password: "dad",
+  });
   const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async (e) => {

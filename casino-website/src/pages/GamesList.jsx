@@ -13,7 +13,7 @@ export default function GamesList({
     <div className="main container">
       <div className="casino">
         <NavBar player={player} handleLogout={handleLogout} />
-        <div className="ui grid">
+        <div className="ui stackable grid reversed">
           <div className="twelve wide column">
             <h3 className="ui dividing header">Games</h3>
             <div className="ui relaxed divided game items links">
