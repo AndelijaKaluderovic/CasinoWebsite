@@ -12,16 +12,21 @@ body {
 }
 
 .search {
-  float: right;
+  display: block;
+  width: 100%;
+  padding: 0;
 }
-
+.errorMessage {
+  color: #ee0909;
+  padding: 2em 0;
+  text-align: center;
+}
+.errorMessage:first-letter{
+  text-transform: capitalize
+}
 @media screen and (max-width: 767px) {
   .ui.stackable.grid.reversed{
     display: flex !important;
     flex-direction: column-reverse !important;
-  }
-  .search {
-    float: none !important;
-    padding: 2em 0;
   }
 }

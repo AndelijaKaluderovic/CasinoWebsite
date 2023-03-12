@@ -1,25 +1,36 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Wrapper from "./components/Wrapper";
 import Login from "./pages/Login";
 import GamesList from "./pages/GamesList";
 import GamePlay from "./pages/GamePlay";
+import fetchData from "./utils/fetchingHelper.js";
 
 export default function App() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || ""
+  );
   const [password, setPassword] = useState("");
   const [games, setGames] = useState([]);
-  const [game, setGame] = useState(undefined);
+  const [allGames, setAllGames] = useState([]);
+  const [gameToPlay, setGameToPlay] = useState({});
   const [categories, setCategories] = useState([]);
-  // const [selectedCategory, setSelectedCategory] = useState(0);
-  // const [searchedInput, setSearchedInput] = useState("");
-  const [player, setPlayer] = useState({
-    name: "Eric Beard",
-    avatar: "images/avatar/eric.jpg",
-    event: "I saw you won 500 SEK last time!",
-    password: "dad",
-  });
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [player, setPlayer] = useState(
+    JSON.parse(localStorage.getItem("player")) || {}
+  );
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem("authenticated") || false
+  );
+  const [loginError, setLoginError] = useState("");
+  const handleCredentials = (username) => {
+    localStorage.setItem("username", username);
+    setUsername(username);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,11 +46,15 @@ export default function App() {
       }),
     });
     const loginResponse = await data.json();
-    // setPlayer(loginResponse.player);
-    // setLoggedIn(true);
-    loginResponse.status === "success"
-      ? console.log("successfully logged in and add info to localStorage")
-      : console.log("please try again");
+    if (loginResponse.status === "success") {
+      localStorage.setItem("authenticated", true);
+      localStorage.setItem("player", JSON.stringify(loginResponse.player));
+      setAuthenticated(true);
+      setPlayer(loginResponse.player);
+      window.location.href = "/games";
+    } else {
+      setLoginError(loginResponse.error);
+    }
   };
 
   const handleLogout = async () => {
@@ -54,43 +69,58 @@ export default function App() {
       }),
     });
     const logoutResponse = await data.json();
-    console.log("logoutResponse: ", logoutResponse);
-    logoutResponse.status === "success"
-      ? console.log("successfully logged out and change info to localStorage")
-      : console.log("please try again");
+    if (logoutResponse.status === "success") {
+      setAuthenticated(false);
+      setPlayer({});
+      localStorage.clear();
+      window.location.href = "/";
+    } else {
+      console.log(logoutResponse.error);
+    }
   };
 
   const handleGameToPlay = (code) => {
-    const gameToPlay = games.find((x) => x.code === code);
-    console.log("gameToPlay: ", gameToPlay);
-    setGame(gameToPlay);
+    const selectedGame = games.find((x) => x.code === code);
+    console.log("selectedGame: ", selectedGame);
+    setGameToPlay(selectedGame);
+    console.log("gameToPlay", gameToPlay);
+    // window.location.href = `/games/${gameToPlay.code}`;
   };
+
   const handleSearch = (input) => {
-    const searchedGames = games.filter((game) => game.name.includes(input));
-    setGames(searchedGames);
+    if (input === "") {
+      setGames(allGames);
+    } else {
+      const searchedGames = allGames.filter((game) =>
+        game.name.toLowerCase().includes(input)
+      );
+      setGames(searchedGames);
+    }
   };
 
   const handleCategories = (categoryId) => {
-    const filteredCategories = games.filter((game) =>
-      game.categoryIds.includes(categoryId)
-    );
-    setGames(filteredCategories);
+    if (categoryId === 0) {
+      setGames(allGames);
+    } else {
+      const filteredCategories = allGames.filter((game) =>
+        game.categoryIds.includes(categoryId)
+      );
+      setGames(filteredCategories);
+    }
   };
 
   const fetchGames = async () => {
-    const data = await fetch("http://localhost:3001/games", {
-      method: "get",
-    });
-    const gamesJSON = await data.json();
-    setGames(gamesJSON);
+    const gamesData = await fetchData("http://localhost:3001/games", "get");
+    setGames(gamesData);
+    setAllGames(gamesData);
   };
 
   const fetchCategories = async () => {
-    const data = await fetch("http://localhost:3001/categories", {
-      method: "get",
-    });
-    const categoriesJSON = await data.json();
-    setCategories(categoriesJSON);
+    const categoriesData = await fetchData(
+      "http://localhost:3001/categories",
+      "get"
+    );
+    setCategories(categoriesData);
   };
 
   useEffect(() => {
@@ -106,31 +136,49 @@ export default function App() {
           exact
           path="/"
           element={
-            <Login
-              player={player}
-              username={username}
-              setUsername={setUsername}
-              setPassword={setPassword}
-              password={password}
-              handleLogin={handleLogin}
-            />
+            !authenticated ? (
+              <Login
+                player={player}
+                username={username}
+                setUsername={handleCredentials}
+                setPassword={setPassword}
+                loginError={loginError}
+                password={password}
+                handleLogin={handleLogin}
+              />
+            ) : (
+              <Navigate to="/games" />
+            )
           }
         />
         <Route
           path="/games"
           element={
-            <GamesList
-              player={player}
-              games={games}
-              categories={categories}
-              handleSearch={handleSearch}
-              handleCategories={handleCategories}
-              handleGameToPlay={handleGameToPlay}
-              handleLogout={handleLogout}
-            />
+            authenticated ? (
+              <GamesList
+                player={player}
+                games={games}
+                categories={categories}
+                handleSearch={handleSearch}
+                handleCategories={handleCategories}
+                handleGameToPlay={handleGameToPlay}
+                handleLogout={handleLogout}
+              />
+            ) : (
+              <Navigate to="/" />
+            )
           }
         />
-        <Route path="/games/:code" element={<GamePlay game={game} />} />
+        <Route
+          path="/games/:code"
+          element={
+            authenticated ? (
+              <GamePlay gameToPlay={gameToPlay} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
       </Routes>
     </Router>
   );

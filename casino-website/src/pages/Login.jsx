@@ -4,16 +4,19 @@ export default function Login({
   handleLogin,
   setUsername,
   setPassword,
+  loginError,
 }) {
   return (
     <div className="main container">
       <div className="login" style={{ display: "block" }}>
+        {loginError && <div className="errorMessage">{loginError}</div>}
         <div className="ui grid centered">
           <form onSubmit={handleLogin}>
             <div className="fields">
               <div className="required field">
                 <div className="ui icon input">
                   <input
+                    autoFocus
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     type="text"
