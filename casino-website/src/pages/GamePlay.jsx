@@ -1,15 +1,17 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function GamePlay({ gameToPlay }) {
-  console.log("gameToPlay: ", gameToPlay);
-  comeon.gameToPlay.launch(gameToPlay.code);
+  // useEffect(() => {
+  //   window.comeon.game.launch(gameToPlay);
+  // }, [gameToPlay]);
   return (
     <div className="main container">
       <div className="ingame">
-        <div className="ui grid centered">
+        <div className="ui stackable grid centered">
           <div className="three wide column">
             <Link to="/games">
-              <div className="ui right floated secondary button inverted">
+              <div className="ui secondary button inverted">
                 <i className="left chevron icon"></i>Back
               </div>
             </Link>

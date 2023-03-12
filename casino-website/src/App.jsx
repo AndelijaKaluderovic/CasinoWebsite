@@ -18,7 +18,9 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [games, setGames] = useState([]);
   const [allGames, setAllGames] = useState([]);
-  const [gameToPlay, setGameToPlay] = useState({});
+  const [gameToPlay, setGameToPlay] = useState(
+    localStorage.getItem("gameCode") || ""
+  );
   const [categories, setCategories] = useState([]);
   const [player, setPlayer] = useState(
     JSON.parse(localStorage.getItem("player")) || {}
@@ -27,6 +29,7 @@ export default function App() {
     localStorage.getItem("authenticated") || false
   );
   const [loginError, setLoginError] = useState("");
+
   const handleCredentials = (username) => {
     localStorage.setItem("username", username);
     setUsername(username);
@@ -80,11 +83,10 @@ export default function App() {
   };
 
   const handleGameToPlay = (code) => {
-    const selectedGame = games.find((x) => x.code === code);
-    console.log("selectedGame: ", selectedGame);
-    setGameToPlay(selectedGame);
-    console.log("gameToPlay", gameToPlay);
-    // window.location.href = `/games/${gameToPlay.code}`;
+    localStorage.setItem("gameCode", code);
+    setGameToPlay(code);
+    window.comeon?.game?.launch(code);
+    window.location.href = `/games/${code}`;
   };
 
   const handleSearch = (input) => {
