@@ -1,7 +1,8 @@
 import PlayerCard from "./PlayerCard";
 import Logout from "./Logout";
+import Search from "./Search";
 
-export default function NavBar({ player, handleLogout }) {
+export default function NavBar({ player, handleLogout, handleSearch }) {
   return (
     <div className="ui grid stackable centered">
       <div className="twelve wide column">
@@ -11,10 +12,7 @@ export default function NavBar({ player, handleLogout }) {
         <Logout handleLogout={handleLogout} />
       </div>
       <div className="four wide column">
-        <div className="search ui small icon input ">
-          <input type="text" placeholder="Search Game" />
-          <i className="search icon"></i>
-        </div>
+        <Search handleSearch={handleSearch} />
       </div>
     </div>
   );

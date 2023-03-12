@@ -11,6 +11,8 @@ export default function App() {
   const [games, setGames] = useState([]);
   const [game, setGame] = useState(undefined);
   const [categories, setCategories] = useState([]);
+  // const [selectedCategory, setSelectedCategory] = useState(0);
+  // const [searchedInput, setSearchedInput] = useState("");
   const [player, setPlayer] = useState({
     name: "Eric Beard",
     avatar: "images/avatar/eric.jpg",
@@ -63,6 +65,17 @@ export default function App() {
     console.log("gameToPlay: ", gameToPlay);
     setGame(gameToPlay);
   };
+  const handleSearch = (input) => {
+    const searchedGames = games.filter((game) => game.name.includes(input));
+    setGames(searchedGames);
+  };
+
+  const handleCategories = (categoryId) => {
+    const filteredCategories = games.filter((game) =>
+      game.categoryIds.includes(categoryId)
+    );
+    setGames(filteredCategories);
+  };
 
   const fetchGames = async () => {
     const data = await fetch("http://localhost:3001/games", {
@@ -110,6 +123,8 @@ export default function App() {
               player={player}
               games={games}
               categories={categories}
+              handleSearch={handleSearch}
+              handleCategories={handleCategories}
               handleGameToPlay={handleGameToPlay}
               handleLogout={handleLogout}
             />
