@@ -29,4 +29,7 @@ body {
     display: flex !important;
     flex-direction: column-reverse !important;
   }
+  #game-launch > iframe{
+      width: 100% !important;
+    }
 }

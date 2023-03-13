@@ -1,4 +1,4 @@
-export default function GameCard({ games, handleGameToPlay }) {
+export default function GameCard({ games, handlePlayGame }) {
   return (
     <>
       {games.map((game, index) => (
@@ -14,7 +14,7 @@ export default function GameCard({ games, handleGameToPlay }) {
             <div className="extra">
               <div
                 className="play ui right floated secondary button inverted"
-                onClick={() => handleGameToPlay(game.code)}
+                onClick={() => handlePlayGame(game.code)}
               >
                 Play
                 <i className="right chevron icon"></i>

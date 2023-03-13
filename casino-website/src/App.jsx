@@ -82,7 +82,7 @@ export default function App() {
     }
   };
 
-  const handleGameToPlay = (code) => {
+  const handlePlayGame = (code) => {
     localStorage.setItem("gameCode", code);
     setGameToPlay(code);
     window.location.href = `/games/${code}`;
@@ -127,7 +127,7 @@ export default function App() {
   useEffect(() => {
     fetchGames();
     fetchCategories();
-  }, []);
+  }, [authenticated]);
 
   return (
     <Router>
@@ -162,7 +162,7 @@ export default function App() {
                 categories={categories}
                 handleSearch={handleSearch}
                 handleCategories={handleCategories}
-                handleGameToPlay={handleGameToPlay}
+                handlePlayGame={handlePlayGame}
                 handleLogout={handleLogout}
               />
             ) : (

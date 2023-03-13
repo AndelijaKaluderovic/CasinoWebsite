@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "yarn run dev & yarn mock-server",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mock-server": "json-server --watch public/mock/mock-data.json --port 3001 --middlewares public/mock/mock-api.cjs"
   },
   "dependencies": {
     "json-server": "^0.17.2",
@@ -18,7 +20,10 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.36.0",
+    "eslint-config-react-app": "^7.0.1",
     "prettier": "2.8.4",
-    "vite": "^4.1.0"
+    "vite": "^4.1.0",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }

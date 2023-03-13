@@ -6,7 +6,7 @@ export default function GamesList({
   player,
   games,
   categories,
-  handleGameToPlay,
+  handlePlayGame,
   handleLogout,
   handleSearch,
   handleCategories,
@@ -23,7 +23,7 @@ export default function GamesList({
           <div className="twelve wide column">
             <h3 className="ui dividing header">Games</h3>
             <div className="ui relaxed divided game items links">
-              <GameCard games={games} handleGameToPlay={handleGameToPlay} />
+              <GameCard games={games} handlePlayGame={handlePlayGame} />
             </div>
           </div>
           <div className="four wide column">

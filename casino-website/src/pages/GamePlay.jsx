@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function GamePlay({ gameToPlay }) {
-  console.log("gameToPlay: ", gameToPlay);
-  // useEffect(() => {
-  //   comeon.game.launch(gameToPlay);
-  // }, []);
+  useEffect(() => {
+    window.comeon.game.launch(gameToPlay);
+  }, [gameToPlay]);
+
   return (
     <main className="main container">
       <div className="ingame">
