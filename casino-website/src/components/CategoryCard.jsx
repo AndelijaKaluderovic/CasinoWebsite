@@ -3,13 +3,11 @@ export default function CategoryCard({ categories, handleCategories }) {
     <>
       {categories.map((category, index) => (
         <div key={index} className="category item">
-          <div className="content">
-            <div
-              className="header"
-              onClick={() => handleCategories(category.id)}
-            >
-              {category.name}
-            </div>
+          <div
+            className="content"
+            onClick={() => handleCategories(category.id)}
+          >
+            <header className="header">{category.name}</header>
           </div>
         </div>
       ))}

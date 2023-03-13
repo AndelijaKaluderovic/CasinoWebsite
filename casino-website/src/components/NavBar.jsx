@@ -4,16 +4,16 @@ import Search from "./Search";
 
 export default function NavBar({ player, handleLogout, handleSearch }) {
   return (
-    <div className="ui grid stackable centered">
+    <header className="ui grid stackable centered">
       <div className="twelve wide column">
-        <div className="ui list">
+        <section className="ui list">
           <PlayerCard player={player} />
-        </div>
+        </section>
         <Logout handleLogout={handleLogout} />
       </div>
-      <div className="four wide column">
+      <aside className="four wide column">
         <Search handleSearch={handleSearch} />
-      </div>
-    </div>
+      </aside>
+    </header>
   );
 }

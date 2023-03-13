@@ -2,14 +2,14 @@ export default function GameCard({ games, handleGameToPlay }) {
   return (
     <>
       {games.map((game, index) => (
-        <div key={index} className="game item">
+        <article key={index} className="game item">
           <div className="ui small image">
             <img src={game.icon} alt="game-icon" />
           </div>
           <div className="content">
-            <div className="header">
+            <header className="header">
               <b className="name">{game.name}</b>
-            </div>
+            </header>
             <div className="description">{game.description}</div>
             <div className="extra">
               <div
@@ -21,7 +21,7 @@ export default function GameCard({ games, handleGameToPlay }) {
               </div>
             </div>
           </div>
-        </div>
+        </article>
       ))}
     </>
   );

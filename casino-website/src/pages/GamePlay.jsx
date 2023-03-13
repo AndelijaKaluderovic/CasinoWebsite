@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function GamePlay({ gameToPlay }) {
+  console.log("gameToPlay: ", gameToPlay);
   // useEffect(() => {
-  //   window.comeon.game.launch(gameToPlay);
-  // }, [gameToPlay]);
+  //   comeon.game.launch(gameToPlay);
+  // }, []);
   return (
-    <div className="main container">
+    <main className="main container">
       <div className="ingame">
         <div className="ui stackable grid centered">
           <div className="three wide column">
@@ -22,6 +23,6 @@ export default function GamePlay({ gameToPlay }) {
           <div className="three wide column"></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -85,7 +85,6 @@ export default function App() {
   const handleGameToPlay = (code) => {
     localStorage.setItem("gameCode", code);
     setGameToPlay(code);
-    window.comeon?.game?.launch(code);
     window.location.href = `/games/${code}`;
   };
 
