@@ -23,6 +23,7 @@ export default function GamesList({
           <div className="twelve wide column">
             <h3 className="ui dividing header">Games</h3>
             <div className="ui relaxed divided game items links">
+              {games.length < 1 ? <p>No search results</p> : null}
               <GameCard games={games} handlePlayGame={handlePlayGame} />
             </div>
           </div>

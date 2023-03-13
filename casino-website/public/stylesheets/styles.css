@@ -16,11 +16,13 @@ body {
   width: 100%;
   padding: 0;
 }
+
 .errorMessage {
   color: #ee0909;
   padding: 2em 0;
   text-align: center;
 }
+
 .errorMessage:first-letter{
   text-transform: capitalize
 }

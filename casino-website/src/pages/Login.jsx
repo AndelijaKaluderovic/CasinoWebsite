@@ -11,6 +11,7 @@ export default function Login({
       <div className="login" style={{ display: "block" }}>
         {loginError && <div className="errorMessage">{loginError}</div>}
         <div className="ui grid centered">
+          <h3>Player Login</h3>
           <form onSubmit={handleLogin}>
             <div className="fields">
               <div className="required field">
