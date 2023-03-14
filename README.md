@@ -35,6 +35,12 @@ These parts needs all to be completed for the assignment to be complete:
 * Load the selected game via the provided API
 * Provide a way to go back to the Games list screen
 
+### Before installing packages, go to casino-website folder
+
+```javascript
+cd casino-website
+```
+
 ### Install needed packages
 
 ```javascript
