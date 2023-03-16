@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  redirect,
 } from "react-router-dom";
 import Wrapper from "./components/Wrapper";
 import Login from "./pages/Login";
@@ -54,7 +55,7 @@ export default function App() {
       localStorage.setItem("player", JSON.stringify(loginResponse.player));
       setAuthenticated(true);
       setPlayer(loginResponse.player);
-      window.location.href = "/games";
+      redirect("/games");
     } else {
       setLoginError(loginResponse.error);
     }
@@ -76,7 +77,9 @@ export default function App() {
       setAuthenticated(false);
       setPlayer({});
       localStorage.clear();
-      window.location.href = "/";
+      redirect("/");
+      setUsername("");
+      setPassword("");
     } else {
       console.log(logoutResponse.error);
     }
