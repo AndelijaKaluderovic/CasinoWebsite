@@ -1,8 +1,8 @@
 export default function GameCard({ games, handlePlayGame }) {
   return (
     <>
-      {games.map((game, index) => (
-        <article key={index} className="game item">
+      {games.map((game) => (
+        <article key={game.name} className="game item">
           <div className="ui small image">
             <img src={game.icon} alt="game-icon" />
           </div>
